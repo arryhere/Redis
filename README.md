@@ -10,7 +10,8 @@
 
 ## Configuration
 
-- port: 6379
+- redis server port: `6379`
+- redis insights port: `8001`
 
 ---
 
