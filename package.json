@@ -1,0 +1,12 @@
+{
+  "name": "redis",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "author": "Arijit Das <arijit@itobuz.com>",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
