@@ -17,7 +17,7 @@
 
 ## Set-Up
 
-- docker compose -f ./compose.db.yaml up --build -d
+- `docker compose -f ./compose.db.yaml up --build -d`
 
 ---
 
