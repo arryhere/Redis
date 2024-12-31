@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "format": "biome format --write ./src",
-    "lint": "biome check --write --unsafe ./src",
+    "lint": "biome lint --write --unsafe ./src && biome check --write --unsafe ./src",
     "pre-commit": "npm run format && npm run lint"
   },
   "dependencies": {
