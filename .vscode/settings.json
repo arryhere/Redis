@@ -9,11 +9,13 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
   },
+  // "editor.fontSize": 12,
   "explorer.autoReveal": false,
   "explorer.compactFolders": false,
   "explorer.sortOrder": "type",
   "workbench.editor.enablePreview": true,
   "terminal.integrated.scrollback": 100000000,
+  // "terminal.integrated.fontSize": 12,
   "workbench.editorAssociations": {
     "*.md": "vscode.markdown.preview.editor"
   },

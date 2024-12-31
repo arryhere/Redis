@@ -7,10 +7,13 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "biome format --write ./src",
+    "lint": "biome check --write --unsafe ./src",
+    "pre-commit": "npm run format && npm run lint"
   },
   "dependencies": {
     "@biomejs/biome": "1.9.4",
-    "ioredis": "^5.4.2"
+    "ioredis": "^5.4.2",
+    "tsx": "^4.19.2"
   }
 }
