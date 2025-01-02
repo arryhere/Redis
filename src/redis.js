@@ -34,6 +34,15 @@ export async function redis() {
     const rpop = await redis_client.rpop('nums');
     console.log({ rpop });
 
+    await redis_client.sadd('set', 1);
+    await redis_client.sadd('set', 2);
+    await redis_client.sadd('set', 2);
+    await redis_client.sadd('set', 3);
+    await redis_client.sadd('set', 3);
+
+    const set_list = await redis_client.smembers('set');
+    console.log({ set_list });
+
     return;
   } catch (error) {
     console.log(`[Error (redis)]: ${error}`);
