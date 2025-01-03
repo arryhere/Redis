@@ -18,7 +18,13 @@
 ## Set-Up
 
 - `docker compose -f ./compose.db.yaml up --build -d`
+- `docker container exec -it redis_stack sh`
+  - `redis-cli`
 
 ---
 
-_follow redis.md from here_
+## Redis Commands Cheat sheet
+
+- `Cheatsheet` [https://redis.io/learn/howtos/quick-start/cheat-sheet]
+
+---

@@ -4,6 +4,14 @@ export async function redis() {
   try {
     await redis_client.flushdb();
 
+    const info = await redis_client.info('server');
+    const redis_version = info
+      .split('\n')
+      .filter((e) => e.includes('redis_version'))[0]
+      .split(':')[1]
+      .split('\r')[0];
+    console.log({ redis_version });
+
     const ping = await redis_client.ping();
     console.log(`[Redis]: PING: ${ping}`);
 
