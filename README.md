@@ -21,7 +21,7 @@
 
 - `docker compose -f ./compose.db.yaml up --build -d`
 - `docker container exec -it redis_stack sh`
-  - `redis-cli`
+  - `redis-cli -u redis://root:password@localhost:6379/0`
   ***
 - `npm i`
 - `npm run redis`
