@@ -1,4 +1,4 @@
-name: redis-stack
+name: compose-redis-stack
 
 services:
   redis_stack:
