@@ -12,8 +12,8 @@
 
 - redis server port: **6379**
 - redis insights port: **8001**
-- redis username: **root**
-- redis password: **password**
+- redis username: **root** (default value: "default")
+- redis password: **password** (default value: "")
 
 ---
 
