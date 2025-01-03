@@ -2,11 +2,14 @@ import { redis_client } from './client/redis.client.js';
 
 async function redis() {
   try {
+    /* flush db */
     await redis_client.flushdb();
 
+    /* ping db */
     const ping = await redis_client.ping();
     console.log(`[Redis]: PING: ${ping}`);
 
+    /* redis info */
     const info = await redis_client.info('server');
     const redis_version = info
       .split('\n')
