@@ -5,7 +5,7 @@
     "target": "ESNext",
     "outDir": "./dist",
     "checkJs": true,
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
     "sourceMap": true,
     "noEmit": true,

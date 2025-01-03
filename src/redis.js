@@ -1,6 +1,6 @@
 import { redis_client } from './client/redis.client.js';
 
-export async function redis() {
+async function redis() {
   try {
     await redis_client.flushdb();
 
@@ -59,3 +59,5 @@ export async function redis() {
     console.log('[Redis]: disconnected');
   }
 }
+
+redis();

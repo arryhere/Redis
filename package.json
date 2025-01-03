@@ -9,10 +9,13 @@
   "scripts": {
     "format": "biome format --write ./src",
     "lint": "biome lint --write --unsafe ./src && biome check --write --unsafe ./src",
-    "pre-commit": "npm run format && npm run lint"
+    "pre-commit": "npm run format && npm run lint",
+    "redis": "tsx ./src/redis.js",
+    "server": "tsx --watch ./src/server.js"
   },
   "dependencies": {
     "@biomejs/biome": "1.9.4",
+    "express": "^4.21.2",
     "ioredis": "^5.4.2",
     "tsx": "^4.19.2"
   }
