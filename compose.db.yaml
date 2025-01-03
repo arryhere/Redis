@@ -5,6 +5,8 @@ services:
     container_name: redis_stack
     image: redis/redis-stack:latest
     restart: on-failure:3
+    environment:
+      REDIS_ARGS: '--requirepass password --user root on >password ~* allcommands --user default off nopass nocommands'
     ports:
       - 6379:6379
       - 8001:8001
