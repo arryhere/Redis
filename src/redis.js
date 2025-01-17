@@ -6,17 +6,7 @@ async function redis() {
     await redis_client.flushdb();
 
     /* ping db */
-    const ping = await redis_client.ping();
-    console.log(`[Redis]: PING: ${ping}`);
 
-    /* redis info */
-    const info = await redis_client.info('server');
-    const redis_version = info
-      .split('\n')
-      .filter((e) => e.includes('redis_version'))[0]
-      .split(':')[1]
-      .split('\r')[0];
-    console.log({ redis_version });
 
     const set_user_1 = await redis_client.set('user:1', 'Roshan');
     console.log({ set_user_1 });
