@@ -25,15 +25,15 @@
   ***
 - `npm i`
 - `npm run redis`
-- `npm run serve`
+- `npm run server`
   ***
 
 ---
 
 ## Redis Docs
 
-- **Cheatsheet** [https://redis.io/learn/howtos/quick-start/cheat-sheet]
-- **Commands** [https://redis.io/docs/latest/commands]
-- **Data-Types** [https://redis.io/docs/latest/develop/data-types]
+- **Cheatsheet** <https://redis.io/learn/howtos/quick-start/cheat-sheet>
+- **Commands** <https://redis.io/docs/latest/commands>
+- **Data-Types** <https://redis.io/docs/latest/develop/data-types>
 
 ---
