@@ -1,57 +1,81 @@
-import { redis_client } from '../db/redis.client.js';
+import { redisClient } from '../db/redis.js';
 
 async function strings() {
   try {
-    const user_1_firstName_response = await redis_client.set('user:1:firstName', 'Arijit');
-    const user_1_lastNameName_response = await redis_client.set('user:1:lastName', 'Das');
-    const user_1_dob_response = await redis_client.set('user:1:dob', '1999-05-28');
-    const user_1_weight_response = await redis_client.set('user:1:weight', 60);
-    console.log('[strings]: ', { user_1_firstName_response, user_1_lastNameName_response, user_1_dob_response, user_1_weight_response });
-    /* 
-    [strings]:  {
-      user_1_firstName_response: 'OK',
-      user_1_lastNameName_response: 'OK',
-      user_1_dob_response: 'OK',
-      user_1_weight_response: 'OK'
-    }
-    */
+    // SET //
+    await redisClient.set('user:1:fullName', 'Foo Bar');
 
-    const user_1_firstName = await redis_client.get('user:1:firstName');
-    const user_1_lastNameName = await redis_client.get('user:1:lastName');
-    const user_1_dob = await redis_client.get('user:1:dob');
-    const user_1_weight = await redis_client.get('user:1:weight');
-    console.log('[strings]: ', { user_1_firstName, user_1_lastNameName, user_1_dob, user_1_weight });
-    /* 
-    [strings]:  {
-      user_1_firstName: 'Arijit',
-      user_1_lastNameName: 'Das',
-      user_1_dob: '1999-05-28',
-      user_1_weight: '60'
-    }
-    */
+    /**
+     * NX: SET only if key DOES NOT EXIST
+     * XX: SET only if key exist
+     */
+    await redisClient.set('user:1:email', 'foo@example.com', { condition: 'NX' });
 
-    const multiple_get = await redis_client.mGet(['user:1:firstName', 'user:1:lastName', 'user:1:role', 'user:1:dob', 'user:1:weight']);
-    console.log('[strings]: ', { multiple_get });
-    /* 
-    [strings]:  { multiple_get: [ 'Arijit', 'Das', null, '1999-05-28', '60' ] } 
-    */
+    /**
+     * EX:      Expire in seconds                               [EX 60]
+     * PX:      Expire in milliseconds                          [PX 1500]
+     * EXAT:    Expire at a specific Unix time (seconds)        [EXAT 1735670000]
+     * PXAT:    Expire at a specific Unix time (milliseconds)   [PXAT 1735670000123]
+     * KEEPTTL: Preserve existing TTL *it cannot have value in options*
+     */
+    await redisClient.set('user:1:ttl', 'yes', { expiration: { type: 'EX', value: 10 } });
 
-    const weight_incr_1 = await redis_client.incr('user:1:weight');
-    const weight_incr_2 = await redis_client.incr('user:1:weight');
-    const weight_incr_3 = await redis_client.incr('user:1:weight');
-    console.log('[strings]: ', { weight_incr_1, weight_incr_2, weight_incr_3, weight: await redis_client.get('user:1:weight') });
-    /*
-    [strings]:  {
-      weight_incr_1: 61,
-      weight_incr_2: 62,
-      weight_incr_3: 63,
-      weight: '63'
-    }
-    */
+    // GET //
+    const fullName = await redisClient.get('user:1:fullName');
+    console.log({ fullName }); // { fullName: 'Foo Bar' }
+
+    // TYPE //
+    const fullNameType = await redisClient.type('user:1:fullName');
+    console.log({ fullNameType }); // { fullNameType: 'string' }
+
+    // GETSET //
+    const oldFullName = await redisClient.getSet('user:1:fullName', 'John Doe');
+    console.log({ oldFullName }); // { oldFullName: 'Foo Bar' }
+
+    // MSET //
+    await redisClient.mSet([
+      ['user:2:fullName', 'Alex Williams'],
+      ['user:3:fullName', 'Dakota Smith'],
+      ['user:4:fullName', 'Leo Shaw'],
+    ]);
+
+    // MGET //
+    const allUserNames = await redisClient.mGet(['user:1:fullName', 'user:2:fullName', 'user:3:fullName', 'user:4:fullName']);
+    console.log({ allUserNames }); // { allUserNames: [ 'John Doe', 'Alex Williams', 'Dakota Smith', 'Leo Shaw' ] }
+
+    // ICR //
+    await redisClient.set('user:1:count', 0); // 0
+    await redisClient.incr('user:1:count'); // 1
+    await redisClient.incr('user:1:count'); // 2
+    await redisClient.incrBy('user:1:count', 5); // 7
+    console.log({ count: await redisClient.get('user:1:count') }); // { count: '7' }
+
+    // DECR //
+    await redisClient.decr('user:1:count'); // 6
+    await redisClient.decr('user:1:count'); // 5
+    await redisClient.decrBy('user:1:count', 3); // 2
+    console.log({ count: await redisClient.get('user:1:count') }); // { count: '2' }
+
+    // KEYS //
+    const keys = await redisClient.keys('*');
+    console.log({ keys });
+    //     {
+    //   keys: [
+    //     'user:2:fullName',
+    //     'user:4:fullName',
+    //     'user:1:fullName',
+    //     'user:1:ttl',
+    //     'user:3:fullName',
+    //     'user:1:email',
+    //     'user:1:count'
+    //   ]
+    // }
+
+    // //
   } catch (error) {
     console.log('[strings]: error', error);
   } finally {
-    redis_client.disconnect();
+    redisClient.destroy();
     console.log('[strings]: redis disconnected');
   }
 }
