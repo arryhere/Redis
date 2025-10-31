@@ -1,4 +1,4 @@
-import { redis_client } from './client/redis.client.js';
+import { redis_client } from './db/redis.client.js';
 
 async function redis() {
   try {
@@ -6,7 +6,6 @@ async function redis() {
     await redis_client.flushdb();
 
     /* ping db */
-
 
     const set_user_1 = await redis_client.set('user:1', 'Roshan');
     console.log({ set_user_1 });

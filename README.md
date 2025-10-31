@@ -35,3 +35,13 @@
 - `npm run server`
 
 </div>
+
+<div style="background:#222222; border:1px solid #2a2a2a; border-radius:10px; padding:16px; margin:12px 0;">
+
+## 📄 Redis Docs
+
+- **Cheatsheet** <https://redis.io/learn/howtos/quick-start/cheat-sheet>
+- **Commands** <https://redis.io/docs/latest/commands>
+- **Data-Types** <https://redis.io/docs/latest/develop/data-types>
+
+</div>

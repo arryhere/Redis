@@ -1,4 +1,4 @@
-import { redis_client } from '../client/redis.client.js';
+import { redis_client } from '../db/redis.client.js';
 
 async function strings() {
   try {
@@ -30,7 +30,7 @@ async function strings() {
     }
     */
 
-    const multiple_get = await redis_client.mget(['user:1:firstName', 'user:1:lastName', 'user:1:role', 'user:1:dob', 'user:1:weight']);
+    const multiple_get = await redis_client.mGet(['user:1:firstName', 'user:1:lastName', 'user:1:role', 'user:1:dob', 'user:1:weight']);
     console.log('[strings]: ', { multiple_get });
     /* 
     [strings]:  { multiple_get: [ 'Arijit', 'Das', null, '1999-05-28', '60' ] } 

@@ -1,12 +1,11 @@
 import express from 'express';
-import { redis_client } from './client/redis.client.js';
+import { redis_client } from './db/redis.client.js';
 
 async function server() {
   try {
     const app = express();
     const port = 3005;
 
-    // @ts-ignore
     app.get('/', async (req, res, next) => {
       try {
         const ping = await redis_client.ping();
@@ -21,18 +20,26 @@ async function server() {
           .split('\r')[0];
 
         const cached_data = await redis_client.get('photos');
-        const ttl_data = await redis_client.ttl('photos');
+
         if (cached_data) {
-          return res.status(200).json({ success: true, redis_version, source: 'redis', ttl: ttl_data, data: JSON.parse(cached_data) });
+          return res.status(200).json({
+            success: true,
+            redis_version,
+            source: 'redis',
+            ttl: await redis_client.ttl('photos'),
+            data: JSON.parse(cached_data),
+          });
         }
 
+        const ttl = 60;
+
         const response = await fetch('https://jsonplaceholder.typicode.com/photos');
-        const data = await response.json();
+        const response_data = await response.json();
 
-        await redis_client.set('photos', JSON.stringify(data));
-        await redis_client.expire('photos', 60);
+        await redis_client.set('photos', JSON.stringify(response_data));
+        await redis_client.expire('photos', ttl);
 
-        return res.status(200).json({ success: true, redis_version, source: 'external', data: data });
+        return res.status(200).json({ success: true, redis_version, source: 'external', data: response_data });
       } catch (error) {
         return res.status(500).json({ success: false, error: error });
       }
@@ -40,6 +47,7 @@ async function server() {
 
     app.listen(port, () => {
       console.log(`[server]: 🚀 http://localhost:${port} 🚀`);
+      console.log('[redis_insight]: 🚀 http://localhost:8001 🚀');
     });
   } catch (error) {
     console.log('[server]: error: ', error);
