@@ -18,7 +18,7 @@ async function strings() {
      * PXAT:    Expire at a specific Unix time (milliseconds)   [PXAT 1735670000123]
      * KEEPTTL: Preserve existing TTL *it cannot have value in options*
      */
-    await redisClient.set('user:1:ttl', 'yes', { expiration: { type: 'EX', value: 10 } });
+    await redisClient.set('user:1:ttl', 'yes', { expiration: { type: 'EX', value: 60 } });
 
     // GET //
     const fullName = await redisClient.get('user:1:fullName');
@@ -70,6 +70,17 @@ async function strings() {
     //     'user:1:count'
     //   ]
     // }
+
+    // EXIST //
+    const exist = await redisClient.exists(['user:1:fullName', 'user:3:fullName', 'user:10:fullName']);
+    console.log({ exist }); // { exist: 2 }
+
+    // EXPIRE //
+    await redisClient.expire('user:1:count', 30);
+
+    // TTL //
+    const ttl = await redisClient.ttl('user:1:count');
+    console.log({ ttl });
 
     // //
   } catch (error) {
