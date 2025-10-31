@@ -82,6 +82,14 @@ async function strings() {
     const ttl = await redisClient.ttl('user:1:count');
     console.log({ ttl });
 
+    // GETRANGE  //
+    const getRange = await redisClient.getRange('user:1:email', 1, 4);
+    console.log({ getRange });
+
+    // SETRANGE  //
+    await redisClient.setRange('user:1:fullName', 1, 'Davis');
+    console.log({ 'user:1:fullName': await redisClient.get('user:1:fullName') });
+
     // //
   } catch (error) {
     console.log('[strings]: error', error);
