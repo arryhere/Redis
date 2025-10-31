@@ -86,8 +86,9 @@ async function strings() {
   } catch (error) {
     console.log('[strings]: error', error);
   } finally {
+    await redisClient.flushDb();
     redisClient.destroy();
-    console.log('[strings]: redis disconnected');
+    console.log('[strings]: redis flushed & disconnected');
   }
 }
 
