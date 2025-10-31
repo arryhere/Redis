@@ -1,6 +1,6 @@
 # 🧠 Redis
 
-<div style="background: #222222; color: #e0e0e0; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.4); font-family: 'Segoe UI', Roboto, sans-serif;">
+<div style="background:#222222; border:1px solid #2a2a2a; border-radius:10px; padding:16px; margin:12px 0;">
 
 ## 🔍 About
 
@@ -8,7 +8,7 @@
 
 </div>
 
-<div style="background: #222222; color: #e0e0e0; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.4); font-family: 'Segoe UI', Roboto, sans-serif;">
+<div style="background:#222222; border:1px solid #2a2a2a; border-radius:10px; padding:16px; margin:12px 0;">
 
 ## ⚙️ Configuration
 
@@ -19,7 +19,7 @@
 
 </div>
 
-<div style="background: #222222; color: #e0e0e0; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.4); font-family: 'Segoe UI', Roboto, sans-serif;">
+<div style="background:#222222; border:1px solid #2a2a2a; border-radius:10px; padding:16px; margin:12px 0;">
 
 ## 🧩 Set-Up
 
@@ -27,6 +27,8 @@
 - `docker container exec -it redis_stack sh`
 
   - `redis-cli -u redis://root:password@localhost:6379/0`
+
+<br>
 
 - `npm i`
 - `npm run redis`
